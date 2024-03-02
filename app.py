@@ -19,7 +19,8 @@ for uploaded_file in uploaded_files:
     image = Image.open(uploaded_file)
     result = model.predict(image, device=device)[0]
     result.save(uploaded_file.name)
-    filename = f'{uploaded_file.name[:-4]}.txt'
+    filename = f'{uploaded_file.name[:uploaded_file.name.rfind(".")]}.txt'
+    open(filename, 'a')
     result.save_txt(filename)
     st.image(uploaded_file.name, caption=uploaded_file.name)
     st.download_button(
